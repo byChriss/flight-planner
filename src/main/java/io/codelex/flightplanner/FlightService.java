@@ -16,12 +16,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static java.util.stream.Collectors.toList;
 
-
 @Component
 class FlightService {
     private final List<Flight> flights = new ArrayList<>();
     private AtomicInteger ID = new AtomicInteger();
-
 
     synchronized Flight addFlight(AddFlightRequest request) {
         if (isFlightPresent(request)) {
@@ -30,7 +28,6 @@ class FlightService {
         if (addRequestContainsNulls(request) || addContainsStrangeTime(request)) {
             throw new NullPointerException();
         }
-
         Flight flight = new Flight((long) ID.incrementAndGet(),
                 request.getFrom(),
                 request.getTo(),
@@ -101,7 +98,6 @@ class FlightService {
         return flights.stream()
                 .filter(flight -> isFlightPresent(request, flight))
                 .collect(toList());
-
     }
 
     private boolean findRequestContainsNulls(FindFlightRequest request) {
@@ -151,10 +147,8 @@ class FlightService {
                 && request.getArrival().equals(flight.getArrivalTime().toLocalDate())) {
             return true;
         }
-
         return false;
     }
-
 
     Flight findById(Long id) {
         if (!isFlightByIdPresent(id)) {
@@ -188,7 +182,6 @@ class FlightService {
         return flights.stream()
                 .filter(flight -> isAirportMatching(flight.getFrom(), from) || isAirportMatching(flight.getTo(), to))
                 .collect(toList());
-
     }
 
     private boolean isAirportMatching(Airport airport, String search) {
@@ -198,15 +191,12 @@ class FlightService {
                     || airport.getAirport().toLowerCase().contains(search.toLowerCase().trim())) {
                 return true;
             }
-
         }
-
         return false;
     }
 
     synchronized void deleteById(Long id) {
         flights.removeIf(flight -> flight.getId().equals(id));
-
     }
 
     void clearAll() {
@@ -216,5 +206,4 @@ class FlightService {
     List<Flight> findAll() {
         return flights;
     }
-
 }

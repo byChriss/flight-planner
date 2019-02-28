@@ -23,14 +23,11 @@ public class AddFlightRequest {
             @JsonProperty("departureTime") LocalDateTime localDateTime,
             @JsonProperty("arrivalTime") LocalDateTime arrivalTime
     ) {
-
         this.from = from;
         this.to = to;
         this.carrier = carrier;
         this.departure = localDateTime;
         this.arrival = arrivalTime;
-
-
     }
 
     public Airport getFrom() {

@@ -34,13 +34,11 @@ public class Airport {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Airport airport1 = (Airport) o;
-        return Objects.equals(getCountry(), airport1.getCountry())
-                && Objects.equals(getCity(), airport1.getCity())
-                && Objects.equals(getAirport(), airport1.getAirport());
+        return getAirport().equals(airport1.getAirport());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getCountry(), getCity(), getAirport());
+        return Objects.hash(getAirport());
     }
 }

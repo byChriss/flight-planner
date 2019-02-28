@@ -27,12 +27,11 @@ class PublicFlightsController {
 
     @PostMapping("/flights")
     public ResponseEntity<List<Flight>> findFlight(@RequestBody FindFlightRequest request) {
-           try {
+        try {
             return new ResponseEntity<>(flightService.findFlights(request), HttpStatus.OK);
         } catch (NullPointerException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
     }
 
     @GetMapping("/flights/{id}")
@@ -42,6 +41,5 @@ class PublicFlightsController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-       
     }
 }

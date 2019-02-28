@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.NoSuchElementException;
 
-
 @RestController
 @RequestMapping("/internal-api")
 public class InternalFlightController {
@@ -28,6 +27,7 @@ public class InternalFlightController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
     @GetMapping("/flights/{id}")
     public ResponseEntity<Flight> findFlightById(@PathVariable Long id) {
         try {
@@ -35,13 +35,10 @@ public class InternalFlightController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/flights/{id}")
     public void deleteFlightById(@PathVariable Long id) {
         flightService.deleteById(id);
-       
     }
-
 }

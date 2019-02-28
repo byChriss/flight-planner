@@ -1,6 +1,5 @@
 package io.codelex.flightplanner.api;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
@@ -12,7 +11,6 @@ public class Flight {
     private String carrier;
     private LocalDateTime departureTime;
     private LocalDateTime arrivalTime;
-
 
     public Flight(@JsonProperty("id") Long id,
                   @JsonProperty("from") Airport from,

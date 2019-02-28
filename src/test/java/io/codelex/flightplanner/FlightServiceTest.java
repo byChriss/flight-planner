@@ -41,7 +41,6 @@ public class FlightServiceTest {
         Flight firstFlight = service.addFlight(request);
         //then
         Assertions.assertEquals(2, firstFlight.getId() + 1);
-
     }
 
     @Test
@@ -118,7 +117,6 @@ public class FlightServiceTest {
         List<Flight> flights = service.search(null, null);
         //then
         assertTrue(flights.isEmpty());
-
     }
 
     @Test
@@ -149,7 +147,6 @@ public class FlightServiceTest {
         List<Flight> flights = service.search(request.getFrom().getAirport(), "");
         //then
         assertEquals(1, flights.size());
-
     }
 
     @Test
@@ -161,7 +158,6 @@ public class FlightServiceTest {
         List<Flight> flights = service.search(request.getFrom().getCountry(), "");
         //then
         assertEquals(1, flights.size());
-
     }
 
     @Test
@@ -283,6 +279,5 @@ public class FlightServiceTest {
                 LocalDateTime.now().plusHours(1)
         );
     }
-
 }
 

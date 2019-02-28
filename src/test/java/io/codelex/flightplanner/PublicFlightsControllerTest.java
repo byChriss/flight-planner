@@ -40,7 +40,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(PublicFlightsController.class)
 public class PublicFlightsControllerTest {
@@ -92,7 +91,6 @@ public class PublicFlightsControllerTest {
                 LocalDate.now()
         );
         String json = MAPPER.writeValueAsString(request);
-
         //expect
         mockMvc.perform(MockMvcRequestBuilders.post("/api/flights")
                 .content(json)
@@ -100,7 +98,6 @@ public class PublicFlightsControllerTest {
                 .accept(APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest());
-
     }
 
     @Test
@@ -120,11 +117,9 @@ public class PublicFlightsControllerTest {
                 request.getDeparture().atStartOfDay(),
                 request.getArrival().atStartOfDay());
 
-
         Mockito.lenient()
                 .when(service.findFlights(any()))
                 .thenReturn(Collections.singletonList(flight));
-
         //expect
         String json = mockMvc.perform(MockMvcRequestBuilders.post("/api/flights")
                 .content(jsonResponse)
@@ -142,5 +137,4 @@ public class PublicFlightsControllerTest {
         //then
         assertFalse(flights.isEmpty());
     }
-
 }
