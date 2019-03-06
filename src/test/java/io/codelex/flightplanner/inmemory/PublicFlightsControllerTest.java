@@ -1,4 +1,4 @@
-package io.codelex.flightplanner;
+package io.codelex.flightplanner.inmemory;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
+import io.codelex.flightplanner.PublicFlightsController;
 import io.codelex.flightplanner.api.Airport;
 import io.codelex.flightplanner.api.FindFlightRequest;
 import io.codelex.flightplanner.api.Flight;
@@ -48,7 +49,7 @@ public class PublicFlightsControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private FlightService service;
+    private InMemoryFlightService service;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
 

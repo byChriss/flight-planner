@@ -1,4 +1,4 @@
-package io.codelex.flightplanner;
+package io.codelex.flightplanner.inmemory;
 
 import io.codelex.flightplanner.api.AddFlightRequest;
 import io.codelex.flightplanner.api.Airport;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class FlightServiceTest {
-    FlightService service = new FlightService();
+public class InMemoryFlightServiceTest {
+    InMemoryFlightService service = new InMemoryFlightService();
 
     @BeforeEach
     void setup() {
