@@ -12,14 +12,16 @@ class MapFlightRecordToFlight implements Function<FlightRecord, Flight> {
     public Flight apply(FlightRecord flightRecord) {
         return new Flight(
                 flightRecord.getId(),
-                new Airport(flightRecord.getFrom().getCountry(),
+                new Airport(flightRecord.getFrom().getAirport(),
                         flightRecord.getFrom().getCity(),
-                        flightRecord.getFrom().getAirport()
+                        flightRecord.getFrom().getCountry()
+
 
                 ),
-                new Airport(flightRecord.getTo().getCountry(),
+                new Airport(flightRecord.getTo().getAirport(),
                         flightRecord.getTo().getCity(),
-                        flightRecord.getTo().getAirport()
+                        flightRecord.getTo().getCountry()
+
 
                 ),
                 flightRecord.getCarrier(),

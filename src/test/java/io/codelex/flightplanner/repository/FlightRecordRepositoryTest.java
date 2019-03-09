@@ -24,7 +24,8 @@ public class FlightRecordRepositoryTest {
 
     @Autowired
     AirportRecordRepository airportRecordRepository;
-    
+
+
     @Test
     public void search_should_not_return_any_results_when_nothing_match() {
         //given
@@ -106,4 +107,31 @@ public class FlightRecordRepositoryTest {
         //then
         Assertions.assertEquals(1, flights.size());
     }
+
+
+    @Test
+    public void should_find_flight_by_request() {
+        //given 
+        AirportRecord RIX = airportRecordRepository.save(new AirportRecord("RIX", "Riga", "LV"));
+        AirportRecord DXB = airportRecordRepository.save(new AirportRecord("DXB", "Dubai", "UAE"));
+
+        FlightRecord flight = new FlightRecord();
+        flight.setFrom(RIX);
+        flight.setTo(DXB);
+        flight.setCarrier("Turkish Airlines");
+        flight.setDepartureTime(LocalDate.of(2019, 1, 2).atStartOfDay());
+        flight.setArrivalTime(LocalDate.of(2019, 1, 3).atStartOfDay());
+        repository.save(flight);
+
+        //when
+        List<FlightRecord> result = repository.findFlightsRequest("RIX", "DXB",
+                LocalDate.of(2019, 1, 1).atStartOfDay(),
+                LocalDate.of(2019, 1, 7).atStartOfDay(),
+                LocalDate.of(2019, 1, 1).atStartOfDay(),
+                LocalDate.of(2019, 1, 7).atStartOfDay());
+        //then
+        Assertions.assertTrue(result.contains(flight));
+    }
+
+
 }

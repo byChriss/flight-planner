@@ -43,7 +43,7 @@ public class RepositoryFlightService implements FlightService {
         flightRecord.setDepartureTime(request.getDeparture());
         flightRecord.setArrivalTime(request.getArrival());
 
-        flightRecordRepository.save(flightRecord);
+        flightRecord = flightRecordRepository.save(flightRecord);
         return toFlight.apply(flightRecord);
     }
 

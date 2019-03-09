@@ -13,9 +13,9 @@ public class Airport {
     @NotEmpty
     private String airport;
 
-    public Airport(@JsonProperty("country") String country,
+    public Airport(@JsonProperty("airport") String airport,
                    @JsonProperty("city") String city,
-                   @JsonProperty("airport") String airport) {
+                   @JsonProperty("country") String country) {
         this.country = country;
         this.city = city;
         this.airport = airport;
