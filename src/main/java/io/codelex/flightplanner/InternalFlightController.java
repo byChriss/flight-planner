@@ -3,35 +3,45 @@ package io.codelex.flightplanner;
 import io.codelex.flightplanner.api.AddFlightRequest;
 
 import io.codelex.flightplanner.api.Flight;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import java.util.NoSuchElementException;
+
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/internal-api")
 public class InternalFlightController {
 
-    @Autowired
-    private FlightService flightService;
+    private final FlightService service;
+
+    InternalFlightController(FlightService service) {
+        this.service = service;
+    }
 
     @PutMapping("/flights")
-    public ResponseEntity<Flight> addFlight(@RequestBody AddFlightRequest request) {
-        try {
-            return new ResponseEntity<>(flightService.addFlight(request), HttpStatus.CREATED);
-        } catch (IllegalStateException e) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        } catch (NullPointerException e) {
+    public ResponseEntity<Flight> addFlight(@RequestBody @Valid AddFlightRequest request) {
+        if (request.getArrival().isBefore(request.getDeparture())
+                || request.getDeparture().isEqual(request.getArrival())
+                || request.getFrom().getAirport().toLowerCase().trim().equals(request.getTo().getAirport().toLowerCase().trim())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        } else
+            try {
+                return new ResponseEntity<>(service.addFlight(request), CREATED);
+            } catch (IllegalStateException e) {
+                return new ResponseEntity<>(CONFLICT);
+            }
     }
 
     @GetMapping("/flights/{id}")
     public ResponseEntity<Flight> findFlightById(@PathVariable Long id) {
         try {
-            return new ResponseEntity<>(flightService.findById(id), HttpStatus.OK);
+            return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -39,6 +49,6 @@ public class InternalFlightController {
 
     @DeleteMapping("/flights/{id}")
     public void deleteFlightById(@PathVariable Long id) {
-        flightService.deleteById(id);
+        service.deleteById(id);
     }
 }

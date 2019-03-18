@@ -2,16 +2,20 @@ package io.codelex.flightplanner.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 public class Airport {
+    @NotEmpty
     private String country;
+    @NotEmpty
     private String city;
+    @NotEmpty
     private String airport;
 
-    public Airport(@JsonProperty("country") String country,
+    public Airport(@JsonProperty("airport") String airport,
                    @JsonProperty("city") String city,
-                   @JsonProperty("airport") String airport) {
+                   @JsonProperty("country") String country) {
         this.country = country;
         this.city = city;
         this.airport = airport;
