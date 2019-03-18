@@ -8,6 +8,7 @@ import io.codelex.flightplanner.api.Flight;
 import io.codelex.flightplanner.repository.model.AirportRecord;
 import io.codelex.flightplanner.repository.model.FlightRecord;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -100,7 +101,11 @@ public class RepositoryFlightService implements FlightService {
 
     @Override
     public void deleteById(Long id) {
-        flightRecordRepository.deleteById(id);
+        try {
+            flightRecordRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            System.out.println("Error");
+        }
     }
 
     @Override

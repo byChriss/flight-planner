@@ -50,9 +50,6 @@ public class InternalFlightController {
 
     @DeleteMapping("/flights/{id}")
     public void deleteFlightById(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-        }
+        service.deleteById(id);
     }
 }
