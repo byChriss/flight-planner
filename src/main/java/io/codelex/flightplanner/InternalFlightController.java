@@ -3,7 +3,6 @@ package io.codelex.flightplanner;
 import io.codelex.flightplanner.api.AddFlightRequest;
 
 import io.codelex.flightplanner.api.Flight;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,9 +49,6 @@ public class InternalFlightController {
 
     @DeleteMapping("/flights/{id}")
     public void deleteFlightById(@PathVariable Long id) {
-        try {
-            service.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-        }
+        service.deleteById(id);
     }
 }
