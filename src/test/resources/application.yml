@@ -1,13 +1,10 @@
 spring:
   datasource:
-    username: codelex
-    password: codelex
-    url: jdbc:postgresql://localhost:5432/flight_planner
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    url: jdbc:tc:postgresql:latest://localhost/flight_planner
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
   liquibase:
     change-log: classpath:/liquibase/updates.xml
-    enabled: false
-flight-planner:
-  store-type: database
+    enabled: true

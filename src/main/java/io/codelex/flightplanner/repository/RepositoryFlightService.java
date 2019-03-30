@@ -7,6 +7,8 @@ import io.codelex.flightplanner.api.FindFlightRequest;
 import io.codelex.flightplanner.api.Flight;
 import io.codelex.flightplanner.repository.model.AirportRecord;
 import io.codelex.flightplanner.repository.model.FlightRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,7 @@ public class RepositoryFlightService implements FlightService {
     private final FlightRecordRepository flightRecordRepository;
     private final AirportRecordRepository airportRecordRepository;
     private final MapFlightRecordToFlight toFlight = new MapFlightRecordToFlight();
+    private static  final Logger log = LoggerFactory.getLogger(RepositoryFlightService.class);
 
     public RepositoryFlightService(FlightRecordRepository flightRecordRepository, AirportRecordRepository airportRecordRepository) {
         this.flightRecordRepository = flightRecordRepository;
@@ -104,7 +107,7 @@ public class RepositoryFlightService implements FlightService {
         try {
             flightRecordRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
-            System.out.println("Error");
+            log.warn("Exception caught", e);
         }
     }
 

@@ -2,8 +2,7 @@ package io.codelex.flightplanner;
 
 import io.codelex.flightplanner.api.FindFlightRequest;
 import io.codelex.flightplanner.api.Flight;
-import io.codelex.flightplanner.api.FlightsWithWeather;
-import io.codelex.flightplanner.api.Weather;
+import io.codelex.flightplanner.api.FlightWithWeather;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,15 +17,15 @@ public
 class PublicFlightsController {
 
     private final FlightService service;
-    private WeatherService weatherService = new WeatherService();
+    private final FlightDecorator flightDecorator;
 
-    PublicFlightsController(FlightService service) {
+    public PublicFlightsController(FlightService service, FlightDecorator flightDecorator) {
         this.service = service;
+        this.flightDecorator = flightDecorator;
     }
 
-
     @GetMapping("/flights/search")
-    public ResponseEntity <List<Flight>> searchTrip(@RequestParam(value = "from", defaultValue = "") String from, @RequestParam(value = "to", defaultValue = "") String to) {
+    public ResponseEntity<List<Flight>> searchTrip(@RequestParam(value = "from", defaultValue = "") String from, @RequestParam(value = "to", defaultValue = "") String to) {
         if (from == null && to == null) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -34,13 +33,14 @@ class PublicFlightsController {
     }
 
     @PostMapping("/flights")
-    public ResponseEntity<List<FlightsWithWeather>> findFlight(@RequestBody @Valid FindFlightRequest request) {
+    public ResponseEntity<List<FlightWithWeather>> findFlight(@RequestBody @Valid FindFlightRequest request) {
         if (request.getFrom().equals(request.getTo())) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         try {
-            return new ResponseEntity<>(createList(service.findFlights(request)), HttpStatus.OK);
+            return new ResponseEntity<>(flightDecorator.findFlight(request), HttpStatus.OK);
         } catch (NullPointerException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
@@ -53,14 +53,5 @@ class PublicFlightsController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    private List<FlightsWithWeather> createList(List<Flight> flights) {
-        List<FlightsWithWeather> flightWeatherMap = new ArrayList<>();
-        for (int i = 0; i < flights.size(); i++) {
-            Weather weather = weatherService.getWeather(flights.get(i).getTo().getCity());
-            flightWeatherMap.add(new FlightsWithWeather(flights.get(i), weather));
-        }
-        return flightWeatherMap;
-    }
-
+    
 }

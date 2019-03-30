@@ -49,7 +49,7 @@
                                  referencedColumnNames="airport"
                                  onDelete="CASCADE"/>
         <createIndex tableName="flights" indexName="idx_flights_airportFrom">
-            <column name="from_airport"></column>
+            <column name="from_airport"/>
         </createIndex>
         <addForeignKeyConstraint baseTableName="flights"
                                  baseColumnNames="to_airport"
@@ -58,7 +58,7 @@
                                  referencedColumnNames="airport"
                                  onDelete="CASCADE"/>
         <createIndex tableName="flights" indexName="idx_flights_airportTo">
-            <column name="to_airport"></column>
+            <column name="to_airport"/>
         </createIndex>
         <addUniqueConstraint tableName="flights"
                              columnNames="from_airport,to_airport,departure_time,arrival_time,carrier"

@@ -1,57 +1,42 @@
 package io.codelex.flightplanner.api;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class Weather {
-
-    private Double temperature;
+    private Double averageTemperature;
+    private Double maxWind;
     private Double precipitation;
-    private Double windSpeed;
-    private String weatherCondition;
+    private String condition;
 
-    public Weather(@JsonProperty("avgtemp_c") Double temperature,
+
+    @JsonCreator
+    public Weather(@JsonProperty("avgtemp_c") Double averageTemperature,
+                   @JsonProperty("maxwind_kph") Double maxWind,
                    @JsonProperty("precip_mm") Double precipitation,
-                   @JsonProperty("wind_kph") Double windSpeed,
-                   @JsonProperty("condition") String weatherCondition) {
+                   @JsonProperty("condition") String condition) {
 
-        this.temperature = temperature;
+        this.averageTemperature = averageTemperature;
+        this.maxWind = maxWind;
         this.precipitation = precipitation;
-        this.windSpeed = windSpeed;
-        this.weatherCondition = weatherCondition;
+        this.condition = condition;
+
     }
 
-    public Weather() {
+    public Double getAverageTemperature() {
+        return averageTemperature;
     }
 
-    public Double getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(Double temperature) {
-        this.temperature = temperature;
+    public Double getMaxWind() {
+        return maxWind;
     }
 
     public Double getPrecipitation() {
         return precipitation;
     }
 
-    public void setPrecipitation(Double precipitation) {
-        this.precipitation = precipitation;
-    }
-
-    public Double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(Double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public String getWeatherCondition() {
-        return weatherCondition;
-    }
-
-    public void setWeatherCondition(String weatherCondition) {
-        this.weatherCondition = weatherCondition;
+    public String getCondition() {
+        return condition;
     }
 }
