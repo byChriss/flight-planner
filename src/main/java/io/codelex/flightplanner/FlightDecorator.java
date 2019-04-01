@@ -12,7 +12,7 @@ import java.util.Optional;
 
 
 @Component
-class FlightDecorator {
+public class FlightDecorator {
 
     private FlightService service;
     private ForecastCache cache;
@@ -22,7 +22,7 @@ class FlightDecorator {
         this.cache = cache;
     }
 
-    List<FlightWithWeather> findFlight(FindFlightRequest request) {
+    public List<FlightWithWeather> findFlight(FindFlightRequest request) {
         List<Flight> flightList = service.findFlights(request);
         List<FlightWithWeather> result = new ArrayList<>();
 

@@ -1,6 +1,7 @@
-package io.codelex.flightplanner;
+package io.codelex.flightplanner.decorator;
 
 
+import io.codelex.flightplanner.FlightDecorator;
 import io.codelex.flightplanner.api.*;
 
 import io.codelex.flightplanner.repository.RepositoryFlightService;

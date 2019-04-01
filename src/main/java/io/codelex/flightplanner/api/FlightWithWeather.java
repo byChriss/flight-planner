@@ -1,6 +1,5 @@
 package io.codelex.flightplanner.api;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
@@ -8,7 +7,6 @@ import java.time.LocalDateTime;
 public class FlightWithWeather extends Flight {
     private final Weather weather;
 
-    @JsonCreator
     public FlightWithWeather(@JsonProperty("id") Long id,
                              @JsonProperty("from") Airport from,
                              @JsonProperty("to") Airport to,

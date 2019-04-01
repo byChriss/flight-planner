@@ -21,14 +21,6 @@ public class CacheKey {
                 && date.equals(cacheKey.date);
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
     @Override
     public int hashCode() {
         return Objects.hash(city, date);
