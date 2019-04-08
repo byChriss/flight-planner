@@ -1,7 +1,5 @@
 package io.codelex.flightplanner.api;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 
 public class Weather {
     private Double averageTemperature;
@@ -9,17 +7,14 @@ public class Weather {
     private Double precipitation;
     private String condition;
 
-
-    public Weather(@JsonProperty("avgtemp_c") Double averageTemperature,
-                   @JsonProperty("maxwind_kph") Double maxWind,
-                   @JsonProperty("precip_mm") Double precipitation,
-                   @JsonProperty("condition") String condition) {
-
+    public Weather(Double averageTemperature,
+                   Double maxWind,
+                   Double precipitation,
+                   String condition) {
         this.averageTemperature = averageTemperature;
         this.maxWind = maxWind;
         this.precipitation = precipitation;
         this.condition = condition;
-
     }
 
     public Double getAverageTemperature() {

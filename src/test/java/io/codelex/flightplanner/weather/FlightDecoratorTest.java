@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.decorator;
+package io.codelex.flightplanner.weather;
 
 
 import io.codelex.flightplanner.FlightDecorator;

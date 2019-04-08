@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.cache;
+package io.codelex.flightplanner.weather;
 
 import io.codelex.flightplanner.api.Weather;
 import io.codelex.flightplanner.weather.ForecastCache;

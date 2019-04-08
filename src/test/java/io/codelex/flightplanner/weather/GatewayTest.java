@@ -1,4 +1,4 @@
-package io.codelex.flightplanner.gateway;
+package io.codelex.flightplanner.weather;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
